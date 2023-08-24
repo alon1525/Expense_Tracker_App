@@ -5,6 +5,7 @@ var kColor =
     ColorScheme.fromSeed(seedColor: const Color.fromRGBO(173, 196, 206, 1));
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MaterialApp(
         theme: ThemeData().copyWith(

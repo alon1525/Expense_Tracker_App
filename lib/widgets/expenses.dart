@@ -67,6 +67,7 @@ class _ExpenseState extends State<Expenses> {
 
   @override
   Widget build(context) {
+    Widget widget;
     Widget mainWidget;
     if (_registeredExpenses.isNotEmpty) {
       mainWidget = ExpensesList(
@@ -75,6 +76,17 @@ class _ExpenseState extends State<Expenses> {
       mainWidget = const Center(
         child: Text('No expenses registered. Start adding some!'),
       );
+    }
+    if (MediaQuery.of(context).size.height > 600) {
+      widget = Column(children: [
+        Chart(expenses: _registeredExpenses),
+        Expanded(child: mainWidget),
+      ]);
+    } else {
+      widget = Row(children: [
+        Expanded(child: Chart(expenses: _registeredExpenses)),
+        Expanded(child: mainWidget),
+      ]);
     }
     return Scaffold(
       appBar: AppBar(
@@ -88,10 +100,7 @@ class _ExpenseState extends State<Expenses> {
               onPressed: _openAddExpenseOverlay, icon: const Icon(Icons.add))
         ],
       ),
-      body: Column(children: [
-        Chart(expenses: _registeredExpenses),
-        Expanded(child: mainWidget),
-      ]),
+      body: widget,
     );
   }
 }
